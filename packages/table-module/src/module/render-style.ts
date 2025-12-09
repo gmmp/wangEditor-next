@@ -15,6 +15,7 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
 
   const {
     backgroundColor, borderWidth, borderStyle, borderColor, textAlign,
+    color, fontWeight, fontSize, fontFamily, fontStyle, textDecoration,
   } = node as TableCellElement
 
   const props: TableCellProperty = {}
@@ -33,6 +34,23 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   if (borderStyle) { props.borderStyle = borderStyle === 'none' ? '' : borderStyle }
   if (borderColor) { props.borderColor = borderColor }
   if (textAlign) { props.textAlign = textAlign }
+
+  // 处理字体样式属性
+  if (color) { props.color = color }
+  if (fontWeight) { props.fontWeight = fontWeight }
+  if (fontSize) {
+    const pureNumericRegex = /^\d+(\.\d+)?$/
+
+    if (pureNumericRegex.test(fontSize)) {
+      // 如果是纯数字则增加px的后缀
+      props.fontSize = `${fontSize}px`
+    } else {
+      props.fontSize = fontSize
+    }
+  }
+  if (fontFamily) { props.fontFamily = fontFamily }
+  if (fontStyle) { props.fontStyle = fontStyle }
+  if (textDecoration) { props.textDecoration = textDecoration }
 
   const styleVnode: VNode = vnode
 

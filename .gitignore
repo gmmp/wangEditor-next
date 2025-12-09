@@ -127,7 +127,8 @@ cypress/screenshots
 cypress/results
 cypress/logs
 
-packages/*/dist
+# Keep dist for git-based imports
+# packages/*/dist
 packages/*/dist-example
 
 bak/

@@ -161,10 +161,34 @@ function parseTableHtml(
   const tdList = $elem.find('tr')[0]?.children || []
   const colgroupElments: HTMLCollection = $elem.find('colgroup')[0]?.children || null
   const colgroupWidths = getColgroupWidths(colgroupElments)
+  const orphanColElements = $elem.find('col')
+  // @ts-ignore
+  const colLength = children[children.length - 1].children.length
 
-  if (colgroupWidths.length > 0) {
+  // First try to get column widths from colgroup > col elements
+  if (colgroupElments && colgroupElments.length === colLength) {
+    tableELement.columnWidths = Array.from(colgroupElments).map((col: any) => {
+      return parseInt(col.getAttribute('width'), 10)
+    })
+  } else if (orphanColElements.length > 0) {
+  // Then try to get column widths from orphan col elements (direct children of table)
+    const columnWidths: number[] = []
+
+    orphanColElements.each((col: Element, _index: number) => {
+      const width = parseInt($(col).attr('width') || '90', 10)
+      const span = parseInt($(col).attr('span') || '1', 10)
+
+      // Add width for each span
+      for (let i = 0; i < span; i += 1) {
+        columnWidths.push(width)
+      }
+    })
+
+    tableELement.columnWidths = columnWidths
+  } else if (colgroupWidths.length > 0) {
     tableELement.columnWidths = colgroupWidths
   } else if (tdList.length > 0) {
+  // Fallback to calculating from td elements
     const columnWidths: number[] = []
 
     Array.from(tdList).forEach(td => {
@@ -172,9 +196,16 @@ function parseTableHtml(
       const width = parseInt(getStyleValue($(td), 'width') || '90', 10) // 获取 width，默认为 90
 
       // 根据 colSpan 的值来填充 columnWidths 数组
-      columnWidths.push(width)
-      for (let i = 1; i < colSpan; i += 1) {
-        columnWidths.push(90)
+      if (colSpan > 1) {
+        // 如果 colSpan > 1，将宽度平均分配给所有跨列的列
+        const averageWidth = Math.floor(width / colSpan)
+
+        for (let i = 0; i < colSpan; i += 1) {
+          columnWidths.push(averageWidth)
+        }
+      } else {
+        // 如果 colSpan = 1，直接使用原始宽度
+        columnWidths.push(width)
       }
     })
     tableELement.columnWidths = columnWidths
