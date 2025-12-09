@@ -29,6 +29,7 @@
     "e2e:dev": "concurrently \"pnpm example\" \"pnpm run cypress:open\"",
     "e2e": "concurrently \"pnpm example\" \"pnpm run cypress:run\"",
     "prepare": "husky install",
+    "postinstall": "pnpm build",
     "changeset": "changeset",
     "example": "turbo run example --filter=@wangeditor-next/editor"
   },
