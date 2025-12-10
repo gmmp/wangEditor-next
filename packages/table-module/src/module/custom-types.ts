@@ -13,6 +13,14 @@ export type TableCellProperty = {
   borderStyle?: string // 边框样式
   borderColor?: string // 边框颜色
   textAlign?: string // 对齐方式
+
+  /** 用于设置字体样式属性 */
+  color?: string // 文字颜色
+  fontWeight?: string // 字体粗细
+  fontSize?: string // 字体大小
+  fontFamily?: string // 字体系列
+  fontStyle?: string // 字体样式
+  textDecoration?: string // 文本装饰
 }
 
 export type TableCellElement = {

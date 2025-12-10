@@ -77,5 +77,43 @@ export function parseStyleHtml(elem: DOMElement, node: Descendant, _editor: IDom
   if (textAlign) {
     tableNode.textAlign = textAlign
   }
+
+  // 解析字体样式属性
+  const color = getStyleValue($elem, 'color')
+
+  if (color) {
+    tableNode.color = color
+  }
+
+  const fontWeight = getStyleValue($elem, 'font-weight')
+
+  if (fontWeight) {
+    tableNode.fontWeight = fontWeight
+  }
+
+  const fontSize = getStyleValue($elem, 'font-size')
+
+  if (fontSize) {
+    tableNode.fontSize = fontSize
+  }
+
+  const fontFamily = getStyleValue($elem, 'font-family')
+
+  if (fontFamily) {
+    tableNode.fontFamily = fontFamily
+  }
+
+  const fontStyle = getStyleValue($elem, 'font-style')
+
+  if (fontStyle) {
+    tableNode.fontStyle = fontStyle
+  }
+
+  const textDecoration = getStyleValue($elem, 'text-decoration')
+
+  if (textDecoration) {
+    tableNode.textDecoration = textDecoration
+  }
+
   return node
 }

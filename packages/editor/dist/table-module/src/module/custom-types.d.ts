@@ -10,6 +10,13 @@ export type TableCellProperty = {
     borderStyle?: string;
     borderColor?: string;
     textAlign?: string;
+    /** 用于设置字体样式属性 */
+    color?: string;
+    fontWeight?: string;
+    fontSize?: string;
+    fontFamily?: string;
+    fontStyle?: string;
+    textDecoration?: string;
 };
 export type TableCellElement = {
     type: 'table-cell';
