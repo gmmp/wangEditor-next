@@ -50,7 +50,7 @@ function tableToHtml(elemNode: Element, childrenHtml: string, editor?: IDomEdito
     return `<table class="w-e-table-layout-fixed"${widthAttr}${heightAttr}${heightDataAttr}>${colgroupStr}<tbody>${childrenHtml}</tbody></table>`
   }
 
-  return `<table style="width: ${exportedWidth};table-layout: fixed;height:${height}">${colgroupStr}<tbody>${childrenHtml}</tbody></table>`
+  return `<table style="border-collapse: collapse;width: ${exportedWidth};table-layout: fixed;height:${height}">${colgroupStr}<tbody>${childrenHtml}</tbody></table>`
 }
 
 function tableRowToHtml(elem: Element, childrenHtml: string, editor?: IDomEditor): string {
