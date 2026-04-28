@@ -140,7 +140,7 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
 
   // 设置样式
   if (backgroundColor) { $elem.css('background-color', backgroundColor) }
-  if (borderWidth) { $elem.css('border-width', `${borderWidth}px`) }
+  if (borderWidth) { $elem.css('border-width', borderWidth) }
   if (borderStyle) { $elem.css('border-style', borderStyle === 'none' ? '' : borderStyle) }
   if (borderColor) { $elem.css('border-color', borderColor) }
   if (textAlign) { $elem.css('text-align', textAlign) }

@@ -25,7 +25,7 @@ function convertPtToPx(cssValue: string): string {
   }
 
   // 使用正则匹配所有带 'pt' 单位的值，例如 '1pt', '0.5pt', '100pt'，并进行替换
-  return cssValue.replace(/(\d+(\.\d+)?)\s*pt/g, (_, p1) => {
+  return cssValue.replace(/(\d*\.?\d+)\s*pt/g, (_, p1) => {
     // p1 是捕获到的数字部分 (如 '1' 或 '0.5')
     const ptValue = parseFloat(p1)
     // 1pt ≈ 1.333333px。为了简化和保证精度，使用 4/3
@@ -84,6 +84,8 @@ export function parseStyleHtml(elem: DOMElement, node: Descendant, _editor: IDom
   if (!borderWidth) { borderWidth = borderAttr }
   if (borderWidth) {
     tableNode.borderWidth = convertPtToPx(borderWidth.trim())
+  } else {
+    tableNode.borderWidth = '1px'
   }
   borderStyle = getStyleValue($elem, 'border-style') || borderStyle // border 样式
   if (!borderStyle) { borderStyle = dataBorderLine }
