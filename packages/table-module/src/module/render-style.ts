@@ -16,6 +16,7 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   const {
     backgroundColor, borderWidth, borderStyle, borderColor, textAlign,
     color, fontWeight, fontSize, fontFamily, fontStyle, textDecoration,
+    whiteSpace, verticalAlign,
   } = node as TableCellElement
 
   const props: TableCellProperty = {}
@@ -51,6 +52,8 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   if (fontFamily) { props.fontFamily = fontFamily }
   if (fontStyle) { props.fontStyle = fontStyle }
   if (textDecoration) { props.textDecoration = textDecoration }
+  if (whiteSpace) { props.whiteSpace = whiteSpace }
+  if (verticalAlign) { props.verticalAlign = verticalAlign }
 
   const styleVnode: VNode = vnode
 

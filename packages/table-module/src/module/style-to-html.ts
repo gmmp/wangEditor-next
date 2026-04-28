@@ -85,10 +85,12 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
   const {
     backgroundColor, borderWidth, borderStyle, borderColor, textAlign,
     color, fontWeight, fontSize, fontFamily, fontStyle, textDecoration,
+    whiteSpace, verticalAlign,
   } = node
 
   if (!(backgroundColor || borderWidth || borderStyle || borderColor || textAlign
-    || color || fontWeight || fontSize || fontFamily || fontStyle || textDecoration)) {
+    || color || fontWeight || fontSize || fontFamily || fontStyle || textDecoration
+    || whiteSpace || verticalAlign)) {
     return elemHtml
   }
 
@@ -135,6 +137,15 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
       $elem.attr('data-w-e-text-align', textAlign)
     }
 
+    if (whiteSpace) {
+      $elem.attr('data-w-e-white-space', whiteSpace)
+    }
+
+    if (verticalAlign) {
+      $elem.attr('valign', verticalAlign)
+      $elem.attr('data-w-e-vertical-align', verticalAlign)
+    }
+
     return getOuterHTML($elem)
   }
 
@@ -152,6 +163,8 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
   if (fontFamily) { $elem.css('font-family', fontFamily) }
   if (fontStyle) { $elem.css('font-style', fontStyle) }
   if (textDecoration) { $elem.css('text-decoration', textDecoration) }
+  if (whiteSpace) { $elem.css('white-space', whiteSpace) }
+  if (verticalAlign) { $elem.css('vertical-align', verticalAlign) }
 
   // 输出 html
   return getOuterHTML($elem)

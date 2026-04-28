@@ -146,5 +146,20 @@ export function parseStyleHtml(elem: DOMElement, node: Descendant, _editor: IDom
     tableNode.textDecoration = textDecoration
   }
 
+  let whiteSpace = getStyleValue($elem, 'white-space')
+
+  if (!whiteSpace) { whiteSpace = $elem.attr('data-w-e-white-space') || '' }
+  if (whiteSpace) {
+    tableNode.whiteSpace = whiteSpace
+  }
+
+  let verticalAlign = getStyleValue($elem, 'vertical-align')
+
+  if (!verticalAlign) { verticalAlign = $elem.attr('valign') || '' }
+  if (!verticalAlign) { verticalAlign = $elem.attr('data-w-e-vertical-align') || '' }
+  if (verticalAlign) {
+    tableNode.verticalAlign = verticalAlign
+  }
+
   return node
 }

@@ -21,6 +21,8 @@ export type TableCellProperty = {
   fontFamily?: string // 字体系列
   fontStyle?: string // 字体样式
   textDecoration?: string // 文本装饰
+  whiteSpace?: string // 空白处理
+  verticalAlign?: string // 垂直对齐
 }
 
 export type TableCellElement = {
