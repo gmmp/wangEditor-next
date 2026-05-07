@@ -15,8 +15,9 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
 
   const {
     backgroundColor, borderWidth, borderStyle, borderColor, textAlign,
+    borderTop, borderRight, borderBottom, borderLeft,
     color, fontWeight, fontSize, fontFamily, fontStyle, textDecoration,
-    whiteSpace, verticalAlign,
+    verticalAlign,
   } = node as TableCellElement
 
   const props: TableCellProperty = {}
@@ -36,6 +37,12 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   if (borderColor) { props.borderColor = borderColor }
   if (textAlign) { props.textAlign = textAlign }
 
+  // 处理 per-side border
+  if (borderTop) { props.borderTop = borderTop }
+  if (borderRight) { props.borderRight = borderRight }
+  if (borderBottom) { props.borderBottom = borderBottom }
+  if (borderLeft) { props.borderLeft = borderLeft }
+
   // 处理字体样式属性
   if (color) { props.color = color }
   if (fontWeight) { props.fontWeight = fontWeight }
@@ -52,7 +59,6 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   if (fontFamily) { props.fontFamily = fontFamily }
   if (fontStyle) { props.fontStyle = fontStyle }
   if (textDecoration) { props.textDecoration = textDecoration }
-  if (whiteSpace) { props.whiteSpace = whiteSpace }
   if (verticalAlign) { props.verticalAlign = verticalAlign }
 
   const styleVnode: VNode = vnode

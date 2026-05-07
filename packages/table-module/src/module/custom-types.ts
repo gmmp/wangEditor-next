@@ -12,6 +12,10 @@ export type TableCellProperty = {
   borderWidth?: string // 边框宽度
   borderStyle?: string // 边框样式
   borderColor?: string // 边框颜色
+  borderTop?: string // 上边框（per-side）
+  borderRight?: string // 右边框（per-side）
+  borderBottom?: string // 下边框（per-side）
+  borderLeft?: string // 左边框（per-side）
   textAlign?: string // 对齐方式
 
   /** 用于设置字体样式属性 */
@@ -21,7 +25,6 @@ export type TableCellProperty = {
   fontFamily?: string // 字体系列
   fontStyle?: string // 字体样式
   textDecoration?: string // 文本装饰
-  whiteSpace?: string // 空白处理
   verticalAlign?: string // 垂直对齐
 }
 

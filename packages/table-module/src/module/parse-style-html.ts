@@ -84,20 +84,54 @@ export function parseStyleHtml(elem: DOMElement, node: Descendant, _editor: IDom
   if (!borderWidth) { borderWidth = borderAttr }
   if (borderWidth) {
     tableNode.borderWidth = convertPtToPx(borderWidth.trim())
-  } else {
+  }
+  if (!tableNode.borderWidth || tableNode.borderWidth === 'none') {
     tableNode.borderWidth = '1px'
   }
+
   borderStyle = getStyleValue($elem, 'border-style') || borderStyle // border 样式
   if (!borderStyle) { borderStyle = dataBorderLine }
   if (!borderStyle) { borderStyle = borderStyleFromClass }
   if (borderStyle) {
     tableNode.borderStyle = borderStyle === 'none' ? '' : borderStyle
   }
+  if (!tableNode.borderStyle || tableNode.borderStyle === 'none') {
+    tableNode.borderStyle = 'solid'
+  }
+
   borderColor = getStyleValue($elem, 'border-color') || borderColor // border 颜色
   if (!borderColor) { borderColor = borderColorAttr }
   if (!borderColor) { borderColor = dataBorderColor }
   if (borderColor) {
     tableNode.borderColor = borderColor
+  }
+  if (!tableNode.borderColor || tableNode.borderColor === 'none') {
+    tableNode.borderColor = `${DEFAULT_BORDER_COLOR}`
+  }
+
+  // 解析 per-side border（如 border-top: .5pt solid #000000）
+  const borderTopRaw = getStyleValue($elem, 'border-top')
+
+  if (borderTopRaw) {
+    tableNode.borderTop = convertPtToPx(borderTopRaw)
+  }
+
+  const borderRightRaw = getStyleValue($elem, 'border-right')
+
+  if (borderRightRaw) {
+    tableNode.borderRight = convertPtToPx(borderRightRaw)
+  }
+
+  const borderBottomRaw = getStyleValue($elem, 'border-bottom')
+
+  if (borderBottomRaw) {
+    tableNode.borderBottom = convertPtToPx(borderBottomRaw)
+  }
+
+  const borderLeftRaw = getStyleValue($elem, 'border-left')
+
+  if (borderLeftRaw) {
+    tableNode.borderLeft = convertPtToPx(borderLeftRaw)
   }
 
   let textAlign = getStyleValue($elem, 'text-align')
@@ -144,13 +178,6 @@ export function parseStyleHtml(elem: DOMElement, node: Descendant, _editor: IDom
 
   if (textDecoration) {
     tableNode.textDecoration = textDecoration
-  }
-
-  let whiteSpace = getStyleValue($elem, 'white-space')
-
-  if (!whiteSpace) { whiteSpace = $elem.attr('data-w-e-white-space') || '' }
-  if (whiteSpace) {
-    tableNode.whiteSpace = whiteSpace
   }
 
   let verticalAlign = getStyleValue($elem, 'vertical-align')

@@ -84,13 +84,15 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
 
   const {
     backgroundColor, borderWidth, borderStyle, borderColor, textAlign,
+    borderTop, borderRight, borderBottom, borderLeft,
     color, fontWeight, fontSize, fontFamily, fontStyle, textDecoration,
-    whiteSpace, verticalAlign,
+    verticalAlign,
   } = node
 
   if (!(backgroundColor || borderWidth || borderStyle || borderColor || textAlign
+    || borderTop || borderRight || borderBottom || borderLeft
     || color || fontWeight || fontSize || fontFamily || fontStyle || textDecoration
-    || whiteSpace || verticalAlign)) {
+    || verticalAlign)) {
     return elemHtml
   }
 
@@ -137,9 +139,11 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
       $elem.attr('data-w-e-text-align', textAlign)
     }
 
-    if (whiteSpace) {
-      $elem.attr('data-w-e-white-space', whiteSpace)
-    }
+    // per-side border: class 模式下也用 inline style 保留，因为无法用 class/data-attr 表达
+    if (borderTop) { $elem.css('border-top', borderTop) }
+    if (borderRight) { $elem.css('border-right', borderRight) }
+    if (borderBottom) { $elem.css('border-bottom', borderBottom) }
+    if (borderLeft) { $elem.css('border-left', borderLeft) }
 
     if (verticalAlign) {
       $elem.attr('valign', verticalAlign)
@@ -156,6 +160,12 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
   if (borderColor) { $elem.css('border-color', borderColor) }
   if (textAlign) { $elem.css('text-align', textAlign) }
 
+  // per-side border
+  if (borderTop) { $elem.css('border-top', borderTop) }
+  if (borderRight) { $elem.css('border-right', borderRight) }
+  if (borderBottom) { $elem.css('border-bottom', borderBottom) }
+  if (borderLeft) { $elem.css('border-left', borderLeft) }
+
   // 设置字体样式
   if (color) { $elem.css('color', color) }
   if (fontWeight) { $elem.css('font-weight', fontWeight) }
@@ -163,7 +173,6 @@ export function styleToHtml(node, elemHtml, editor?: IDomEditor) {
   if (fontFamily) { $elem.css('font-family', fontFamily) }
   if (fontStyle) { $elem.css('font-style', fontStyle) }
   if (textDecoration) { $elem.css('text-decoration', textDecoration) }
-  if (whiteSpace) { $elem.css('white-space', whiteSpace) }
   if (verticalAlign) { $elem.css('vertical-align', verticalAlign) }
 
   // 输出 html
