@@ -11,7 +11,7 @@ import { TableCellElement } from './custom-types'
 // 获取 var(--w-e-textarea-border-color) 变量的实际样式值
 const DEFAULT_BORDER_COLOR = window
   ?.getComputedStyle(document.documentElement)
-  ?.getPropertyValue('--w-e-textarea-border-color')
+  ?.getPropertyValue('--w-e-textarea-border-color') || '#ccc'
 
 /**
  * 将 CSS 尺寸字符串中的 'pt' 转换为 'px'
